@@ -8,6 +8,25 @@
 
 using std::vector;
 
+PMTree::PMTree(std::vector<char> v) {
+    root = new Node;
+    root->value = 0;
+    build(root, v);
+}
+void PMTree::build(Node* node, std::vector<char> v) {
+    if (v.empty())
+        return;
+    for (int i = 0; i < static_cast<int>(v.size()); i++) {
+        Node* p = new Node;
+        p->value = v[i];
+        node->child.push_back(p);
+        std::vector<char> temp = v;
+        temp.erase(temp.begin() + i);
+        build(p, temp);
+    }
+}
+
+
 void DFS(Node* node,
          vector<char>& cur,
          vector<vector<char>>& perms) {
